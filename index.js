@@ -10,9 +10,13 @@ const openai = new OpenAI({
 const chatCompletion = await openai.chat.completions
   .create({
     model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content: 'Hello!' }],
+    messages: [
+      {
+        role: 'user',
+        content: 'Please',
+      },
+    ],
   })
   .then((res) => {
-    console.log(res);
+    console.log(res.choices[0].message.content);
   });
-console.log(chatCompletion.choices[0].message);
