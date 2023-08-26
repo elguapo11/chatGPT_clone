@@ -13,7 +13,7 @@ const chatCompletion = openai.chat.completions
     messages: [
       {
         role: 'user',
-        content: 'Who are you?',
+        assistant: 'Greetings',
       },
     ],
   })
