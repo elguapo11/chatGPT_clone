@@ -7,7 +7,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
 });
 
-const chatCompletion = await openai.chat.completions
+const chatCompletion = openai.chat.completions
   .create({
     model: 'gpt-3.5-turbo',
     messages: [
@@ -19,4 +19,5 @@ const chatCompletion = await openai.chat.completions
   })
   .then((res) => {
     console.log(res.choices[0].message.content);
+    console.log(`${res.usage.total_tokens} ` + 'number of tokens');
   });
