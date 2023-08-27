@@ -13,15 +13,15 @@ const chatCompletion = function chat(reply) {
       model: 'gpt-3.5-turbo',
       messages: [
         {
-          role: 'system',
+          role: 'user',
           content: `${reply}`,
         },
       ],
     })
     .then((res) => {
       console.log(res.choices[0].message.content);
-      console.log(`${res.usage.total_tokens} ` + `/n` + 'number of tokens');
+      console.log(`${res.usage.total_tokens} ` + '' + 'number of tokens');
     });
 };
 
-chatCompletion('create a simple function to demonstrate javascript');
+chatCompletion('hello');
