@@ -20,6 +20,7 @@ userInterface.on('line', async (input) => {
     .create({
       model: 'gpt-3.5-turbo',
       user: 'user',
+      max_tokens: 60,
       messages: [
         {
           role: 'user',
@@ -30,7 +31,7 @@ userInterface.on('line', async (input) => {
     .then((res) => {
       console.log(res.choices[0].message.content);
       console.log(
-        `\n{{{{********This reply has costed you ${res.usage.total_tokens} tokens********}}}}`
+        `\n{ This reply has costed you ${res.usage.total_tokens} tokens }`
       );
     });
 });
