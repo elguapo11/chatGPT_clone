@@ -2,27 +2,38 @@ import { config } from 'dotenv';
 config();
 
 import OpenAI from 'openai';
+import readline from 'readline';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
 });
 
-function chat(response) {
-  openai.chat.completions
+const userInterface = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+userInterface.prompt();
+
+userInterface.on('line', async (input) => {
+  await openai.chat.completions
     .create({
       model: 'gpt-3.5-turbo',
+      user: 'user',
       messages: [
         {
           role: 'user',
-          content: `${response}`,
+          content: `${input}`,
         },
       ],
     })
     .then((res) => {
       console.log(res.choices[0].message.content);
-      console.log(`${res.usage.total_tokens} ` + '' + 'number of tokens');
+      console.log(
+        `\n{{{{********This reply has costed you ${res.usage.total_tokens} tokens********}}}}`
+      );
     });
-}
+});
 
 const chatCompletion = function chat(reply) {
   openai.chat.completions
@@ -38,9 +49,8 @@ const chatCompletion = function chat(reply) {
     })
     .then((res) => {
       console.log(res.choices[0].message.content);
-      console.log(`${res.usage.total_tokens} ` + '' + 'number of tokens');
+      console.log(
+        `'This test has costed you '${res.usage.total_tokens}'tokens'`
+      );
     });
 };
-
-chat('test');
-chatCompletion('test 2');
